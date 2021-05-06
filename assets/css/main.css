@@ -100,7 +100,7 @@ input, select, textarea {
 
 	body {
 		background-color: #000000;
-		
+		background-image: linear-gradient(147deg, #000000 0%, #1b1b1b 74%);
 	}
 
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
@@ -3774,3 +3774,7 @@ input, select, textarea {
 			}
 
 		}
+	.pdf-icon{
+		height: 2em;
+		width: 2em;
+	}
