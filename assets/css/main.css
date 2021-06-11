@@ -2443,8 +2443,8 @@ input[type="radio"]:focus + label:before {
 }
 
 .icon.alt {
-  border-color: rgba(255, 255, 255, 0.35);
-  color: #ffffff;
+  border-color: rgba(0, 0, 0, 0.35);
+  color: #000000;
 }
 
 .icon.alt:hover {
@@ -2581,11 +2581,11 @@ dl.alt:after {
 }
 
 ul.alt li {
-  border-top-color: rgba(255, 255, 255, 0.35);
+  border-top-color: rgba(255, 255, 255);
 }
 
 dl dt {
-  color: #ffffff;
+  color: #000000;
 }
 
 /* Actions */
@@ -2738,6 +2738,7 @@ header.major {
 
 header.major h2 {
   font-size: 2em;
+  text-align: start;
 }
 
 header.major h2:after {
@@ -2876,15 +2877,15 @@ table th {
 }
 
 table thead {
-  border-bottom-color: rgba(255, 255, 255, 0.35);
+  border-bottom-color: rgba(255, 255, 255);
 }
 
 table tfoot {
-  border-top-color: rgba(255, 255, 255, 0.35);
+  border-top-color: rgba(255, 255, 255);
 }
 
 table.alt tbody tr td {
-  border-color: rgba(255, 255, 255, 0.35);
+  border-color: rgba(255, 255, 255);
 }
 
 /* Features */
@@ -2906,6 +2907,7 @@ table.alt tbody tr td {
   margin: 0 0 3em -2em;
   padding: 0;
   list-style: none;
+  flex: 1 1 0;
 }
 
 .features li {
@@ -3299,12 +3301,12 @@ body.is-preload #header.alt .logo {
   transition: background-color 0.2s ease, border-top-left-radius 0.2s ease,
     border-top-right-radius 0.2s ease, padding 0.2s ease;
   background-color: #ffffff;
-  color: #636363;
+  color: #000000;
   position: absolute;
   width: 64em;
   max-width: calc(100% - 4em);
   padding: 1em;
-  background-color: #f7f7f7;
+  background-color: #ffffff;
   border-top-left-radius: 0.25em;
   border-top-right-radius: 0.25em;
   cursor: default;
@@ -3314,7 +3316,7 @@ body.is-preload #header.alt .logo {
 #nav input,
 #nav select,
 #nav textarea {
-  color: #636363;
+  color: #ffffff;
 }
 
 #nav a:hover {
@@ -3332,20 +3334,20 @@ body.is-preload #header.alt .logo {
 #nav h4,
 #nav h5,
 #nav h6 {
-  color: #636363;
+  color: #000000;
 }
 
 #nav blockquote {
-  border-left-color: #dddddd;
+  border-left-color: #ffffff;
 }
 
 #nav code {
-  background: rgba(222, 222, 222, 0.25);
-  border-color: #dddddd;
+  background: rgba(255, 255, 255);
+  border-color: #ffffff;
 }
 
 #nav hr {
-  border-bottom-color: #dddddd;
+  border-bottom-color: #ffffff;
 }
 
 #nav + #main {
@@ -3356,6 +3358,8 @@ body.is-preload #header.alt .logo {
   margin: 0;
   padding: 0;
   list-style: none;
+  text-align: start;
+  padding-left: 2.5em;
 }
 
 #nav ul li {
@@ -3396,7 +3400,7 @@ body.is-preload #header.alt .logo {
   position: fixed;
   top: 0;
   padding: 0.5em 1em;
-  background-color: rgba(247, 247, 247, 0.95);
+  background-color: rgba(255, 255, 255);
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   z-index: 10000;
@@ -3462,7 +3466,7 @@ body.is-preload #header.alt .logo {
 }
 
 #main hr {
-  border-bottom-color: #dddddd;
+  border-bottom-color: #ffffff;
 }
 
 #main .box {
@@ -3475,7 +3479,7 @@ body.is-preload #header.alt .logo {
 #main button,
 #main .button {
   background-color: transparent;
-  box-shadow: inset 0 0 0 1px #dddddd;
+  box-shadow: inset 0 0 0 1px #000000;
   color: #636363 !important;
 }
 
@@ -3621,8 +3625,8 @@ body.is-preload #header.alt .logo {
 }
 
 #main .icon.alt {
-  border-color: #dddddd;
-  color: #636363;
+  border-color: #000000;
+  color: #000000;
 }
 
 #main .icon.alt:hover {
@@ -3634,7 +3638,7 @@ body.is-preload #header.alt .logo {
 }
 
 #main ul.alt li {
-  border-top-color: #dddddd;
+  border-top-color: #ffffff;
 }
 
 #main dl dt {
@@ -3654,11 +3658,11 @@ body.is-preload #header.alt .logo {
 }
 
 #main table thead {
-  border-bottom-color: #dddddd;
+  border-bottom-color: #ffffff;
 }
 
 #main table tfoot {
-  border-top-color: #dddddd;
+  border-top-color: #ffffff;
 }
 
 #main table.alt tbody tr td {
@@ -3670,8 +3674,7 @@ body.is-preload #header.alt .logo {
 }
 
 #main > .main {
-  padding: 5em 5em 3em 5em;
-  border-top: solid 1px #dddddd;
+  padding: 3em 3em 1em 3em;
 }
 
 #main > .main:first-child {
@@ -3707,7 +3710,7 @@ body.is-preload #header.alt .logo {
 
 @media screen and (max-width: 980px) {
   #main > .main {
-    padding: 4em 3em 2em 3em;
+    padding: 2em 1em 0em 1em;
   }
 
   #main > .main > .image.main:first-child {
