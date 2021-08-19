@@ -1,3 +1,6 @@
+body {
+  font-family: "Times New Roman", Times, serif;
+}
 header {
   margin-left: 10px;
 }
@@ -6,18 +9,37 @@ ul {
 }
 .card {
   box-sizing: border-box;
-  border: 0.1px solid black;
+
   border-radius: 10px;
   padding: 10px;
-  width: 50%;
+  width: 49%;
   text-decoration: none;
   margin-bottom: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
+}
+#projectbox {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 #back {
   position: absolute;
   right: 15px;
   top: 10px;
+  color: black;
+}
+a {
+  color: black;
+}
+section a {
+  color: white;
+  background-color: black;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 10px;
 }
