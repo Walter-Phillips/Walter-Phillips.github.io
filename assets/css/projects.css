@@ -1,0 +1,23 @@
+header {
+  margin-left: 10px;
+}
+ul {
+  text-decoration: none;
+}
+.card {
+  box-sizing: border-box;
+  border: 0.1px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  width: 50%;
+  text-decoration: none;
+  margin-bottom: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+}
+
+#back {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+}
