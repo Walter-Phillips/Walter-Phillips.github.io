@@ -28,6 +28,7 @@ body {
 }
 #blurb {
   text-align: center;
+  line-height: 1.5;
 }
 #quote {
   padding-top: 20px;
