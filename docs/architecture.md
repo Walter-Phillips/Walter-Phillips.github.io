@@ -1,0 +1,27 @@
+# Architecture
+
+## Stack
+- Next.js 16 App Router
+- React 19
+- TypeScript
+- Tailwind CSS 4
+
+## Routing and UI Structure
+- Route files live under `app/**/page.tsx`.
+- Shared shell and metadata live in `app/layout.tsx`.
+- Route content should remain simple and readable; shared abstractions should be introduced only when duplication is material.
+
+## Boundaries
+- Keep route-level rendering logic in route files.
+- Keep reusable UI logic in dedicated modules once reused across multiple routes.
+- Keep global styling in `app/globals.css`; avoid scattered global overrides.
+
+## Config Ownership
+- Linting: `eslint.config.mjs`
+- TypeScript: `tsconfig.json`
+- Runtime/build: `next.config.ts`
+- Verification scripts and dependencies: `package.json`
+
+## Change Policy
+- Prefer incremental changes over broad rewrites.
+- Any architectural change must update this document and `docs/coding-standards.md` in the same PR.
