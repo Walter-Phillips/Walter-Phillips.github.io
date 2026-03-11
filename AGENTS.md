@@ -18,6 +18,18 @@ This repo is a personal site built with Next.js App Router. Keep this file short
 - Quick gate: `npm run verify:quick`
 - Full gate: `npm run verify:full`
 
+## Subagent-First Policy
+- Default behavior: for any task with unknowns, planning needs, or likely multi-file impact, spawn subagents for research and planning before editing code.
+- Minimum expectation on non-trivial tasks:
+  - One research subagent to gather codebase/context findings.
+  - One planning subagent to propose an execution plan from those findings.
+- Before code edits, produce a short "Findings" and "Plan" summary based on subagent output.
+- Keep implementation local to the primary agent after the plan is accepted, unless delegated execution is explicitly needed.
+
+### Exceptions
+- Trivial, low-risk one-file edits with clear requirements may proceed without subagents.
+- If subagent use is skipped, document the reason in the task/PR notes.
+
 ## Do
 - Follow `docs/architecture.md` and `docs/coding-standards.md`.
 - Prefer small, focused diffs.
