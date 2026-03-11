@@ -1,4 +1,5 @@
 import { projects, writing } from "@/lib/data";
+import { photographyCollection } from "@/lib/photography";
 import { resume } from "@/lib/resume";
 
 const site = {
@@ -20,6 +21,7 @@ const site = {
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },
     { label: "Projects", href: "/projects" },
+    { label: "Photography", href: "/photography" },
     { label: "Writing", href: "/writing" },
     { label: "GitHub", href: resume.github ?? "https://github.com/Walter-Phillips" },
     { label: "Twitter", href: "https://twitter.com/@_Lalter" },
@@ -105,6 +107,10 @@ export function buildLlmsText() {
     ]),
     section("About", site.about.map((item) => `- ${item}`)),
     section("Beliefs", site.beliefs.map((item) => `- ${item}`)),
+    section("Photography", [
+      `- ${photographyCollection.description}`,
+      "- Gallery supports both grid and carousel presentation modes.",
+    ]),
     section(
       "Pages",
       site.links

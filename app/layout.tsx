@@ -69,7 +69,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={cn("dark antialiased", geist.variable, geistMono.variable)}>
-      <body className="mx-auto min-h-screen w-full max-w-3xl px-4 sm:px-8 md:px-10 lg:px-12">
+      <body className="min-h-screen w-full">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd) }}

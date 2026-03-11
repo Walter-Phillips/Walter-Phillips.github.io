@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import { projects, writing } from "@/lib/data";
+import {
+  getPhotographyPhotos,
+  photographyCollection,
+} from "@/lib/photography";
 import { resume } from "@/lib/resume";
 
 export const siteUrl = "https://walter-phillips.github.io";
@@ -157,6 +161,29 @@ export function buildWritingJsonLd() {
         name: entry.title,
         url: entry.href,
         datePublished: entry.publishedAt,
+      })),
+    },
+  };
+}
+
+export function buildPhotographyJsonLd() {
+  const photos = getPhotographyPhotos();
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: photographyCollection.title,
+    url: getAbsoluteUrl("/photography"),
+    description: photographyCollection.description,
+    primaryImageOfPage: photos[0]?.images.full,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: photos.map((photo, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: photo.title ?? photo.alt,
+        image: photo.images.full,
+        description: photo.description,
       })),
     },
   };

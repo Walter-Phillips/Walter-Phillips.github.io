@@ -9,6 +9,7 @@
 ## Routing and UI Structure
 - Route files live under `app/**/page.tsx`.
 - Shared shell and metadata live in `app/layout.tsx`.
+- Keep root layout concerns global; route-specific width and content containers should live in the route tree so sections like photography can opt into wider layouts without affecting the rest of the site.
 - Route content should remain simple and readable; shared abstractions should be introduced only when duplication is material.
 
 ## Boundaries

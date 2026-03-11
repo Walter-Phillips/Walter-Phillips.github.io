@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getAbsoluteUrl } from "@/lib/seo";
 
-const routes = ["/", "/about", "/projects", "/writing"];
+const routes = ["/", "/projects", "/photography", "/writing"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();

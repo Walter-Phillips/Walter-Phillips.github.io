@@ -1,0 +1,8 @@
+.next
+coverage
+node_modules
+out
+package-lock.json
+playwright-report
+test-results
+lib/photography.generated.ts
