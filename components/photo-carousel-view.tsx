@@ -110,7 +110,7 @@ export function PhotoCarouselView({
                   placeholder={activePhoto.blurDataUrl ? "blur" : "empty"}
                   blurDataURL={activePhoto.blurDataUrl}
                 />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/70 via-background/0 to-transparent" />
+                <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-background/70 via-background/0 to-transparent" />
               </motion.div>
 
               <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 text-left">

@@ -5,11 +5,7 @@ import {
   type RenderablePhoto,
 } from "@/lib/photography";
 
-export type PhotographyImageVariant =
-  | "grid"
-  | "carousel"
-  | "thumb"
-  | "lightbox";
+export type PhotographyImageVariant = "grid" | "carousel" | "thumb" | "lightbox";
 
 type PhotographyImageProps = Omit<ImageProps, "alt" | "loader" | "src"> & {
   alt: string;
@@ -17,13 +13,12 @@ type PhotographyImageProps = Omit<ImageProps, "alt" | "loader" | "src"> & {
   variant: PhotographyImageVariant;
 };
 
-const defaultFitByVariant: Record<PhotographyImageVariant, PhotographyImageFit> =
-  {
-    grid: "cover",
-    carousel: "cover",
-    thumb: "cover",
-    lightbox: "scale-down",
-  };
+const defaultFitByVariant: Record<PhotographyImageVariant, PhotographyImageFit> = {
+  grid: "contain",
+  carousel: "contain",
+  thumb: "contain",
+  lightbox: "scale-down",
+};
 
 const defaultQualityByVariant: Record<PhotographyImageVariant, number> = {
   grid: 82,
@@ -39,13 +34,7 @@ const defaultSizesByVariant: Record<PhotographyImageVariant, string> = {
   lightbox: "100vw",
 };
 
-export function PhotographyImage({
-  alt,
-  photo,
-  sizes,
-  variant,
-  ...props
-}: PhotographyImageProps) {
+export function PhotographyImage({ alt, photo, sizes, variant, ...props }: PhotographyImageProps) {
   const loader = ({ src, quality, width }: ImageLoaderProps) =>
     buildPhotographyImageUrl(src, {
       fit: defaultFitByVariant[variant],

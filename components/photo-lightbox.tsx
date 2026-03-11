@@ -113,7 +113,7 @@ export function PhotoLightbox({
                 <button
                   type="button"
                   onClick={() => onActiveIndexChange(wrapIndex(safeIndex + 1, photos.length))}
-                  className="absolute right-4 top-1/2 z-10 inline-flex size-10 -translate-y-1/2 items-center justify-center border border-border/70 bg-background/85 text-foreground transition-colors hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  className="absolute right-4 top-1/2 z-10 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-border/70 bg-background/85 text-foreground transition-colors hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   aria-label="Next photo"
                 >
                   <ChevronRight className="size-4" />

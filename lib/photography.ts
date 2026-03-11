@@ -1,8 +1,7 @@
 import { generatedPhotographyPhotosSource } from "@/lib/photography.generated";
 
 const photographyDeliveryBaseUrl =
-  process.env.NEXT_PUBLIC_PHOTOGRAPHY_DELIVERY_BASE_URL?.replace(/\/+$/, "") ??
-  "";
+  process.env.NEXT_PUBLIC_PHOTOGRAPHY_DELIVERY_BASE_URL?.replace(/\/+$/, "") ?? "";
 const isR2DevelopmentUrl = photographyDeliveryBaseUrl.includes(".r2.dev");
 
 export type PhotoTag =
@@ -30,8 +29,7 @@ export interface PhotoItem {
   tags: PhotoTag[];
 }
 
-export interface PhotoOverride
-  extends Partial<Omit<PhotoItem, "id" | "storageKey">> {
+export interface PhotoOverride extends Partial<Omit<PhotoItem, "id" | "storageKey">> {
   hidden?: boolean;
   sortOrder?: number;
 }
@@ -48,8 +46,7 @@ export interface RenderablePhoto extends PhotoItem {
 
 export const photographyCollection = {
   title: "Photography",
-  description:
-    "A growing archive of field notes, portraits, and landscapes from Walter Phillips.",
+  description: "A growing archive of field notes, portraits, and landscapes from Walter Phillips.",
 } as const;
 
 export const photographyPhotoOverrides: Record<string, PhotoOverride> = {
@@ -112,7 +109,7 @@ function buildPhotographyAssetUrl(storageKey: string) {
   return `${photographyDeliveryBaseUrl}/${encodeStorageKey(storageKey)}`;
 }
 
-export type PhotographyImageFit = "cover" | "scale-down";
+export type PhotographyImageFit = "contain" | "cover" | "scale-down";
 
 interface BuildPhotographyImageUrlOptions {
   fit: PhotographyImageFit;
@@ -132,15 +129,8 @@ export function buildPhotographyImageUrl(
     return src;
   }
 
-  const relativePath = src
-    .slice(photographyDeliveryBaseUrl.length)
-    .replace(/^\/+/, "");
-  const transformations = [
-    "format=auto",
-    "metadata=none",
-    `fit=${fit}`,
-    `width=${width}`,
-  ];
+  const relativePath = src.slice(photographyDeliveryBaseUrl.length).replace(/^\/+/, "");
+  const transformations = ["format=auto", "metadata=none", `fit=${fit}`, `width=${width}`];
 
   if (quality) {
     transformations.push(`quality=${quality}`);
