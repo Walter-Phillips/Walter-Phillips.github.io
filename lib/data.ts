@@ -27,6 +27,7 @@ export const writing = [
     title: "Understanding Consensus: The Byzantine Generals Problem",
     venue: "Meridian",
     date: "Feb 2026",
+    publishedAt: "2026-02-01",
     href: "https://meridian.app/research/understanding-consensus-the-byzantine-generals-problem-illuminates-the-blockchain-requirement",
   },
   {
@@ -34,12 +35,14 @@ export const writing = [
       "Understanding Blockchains: Cryptography, distributed systems, and game theory",
     venue: "Meridian",
     date: "Jan 2026",
+    publishedAt: "2026-01-01",
     href: "https://meridian.app/research/how-blockchains-work",
   },
   {
     title: "Understanding Blockchains: A new form of public infrastructure",
     venue: "Meridian",
     date: "Jan 2026",
+    publishedAt: "2026-01-01",
     href: "https://meridian.app/research/why-blockchains-are-public-infrastructure",
   },
 ];

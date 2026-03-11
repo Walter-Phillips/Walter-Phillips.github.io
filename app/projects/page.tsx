@@ -1,10 +1,25 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { projects } from "@/lib/data";
 import { ProjectCard } from "@/components/project-card";
+import { buildPageMetadata, buildProjectsJsonLd } from "@/lib/seo";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Projects",
+  description:
+    "Selected projects and product work from Walter Phillips across markets, payments, and developer tooling.",
+  path: "/projects",
+});
+
+const projectsJsonLd = buildProjectsJsonLd();
 
 export default function Projects() {
   return (
     <main className="py-12 sm:py-16 md:py-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectsJsonLd) }}
+      />
       <div className="mb-10 flex flex-col gap-3 sm:mb-12 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-xl font-semibold tracking-tight sm:text-2xl">Projects</h1>
         <Link

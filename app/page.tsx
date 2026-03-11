@@ -1,9 +1,19 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import { resume } from "@/lib/resume";
 import { projects, writing } from "@/lib/data";
 import { ProjectCard } from "@/components/project-card";
 import { WritingList } from "@/components/writing-list";
+import { buildPageMetadata } from "@/lib/seo";
 
 const PREVIEW_COUNT = 3;
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Walter Phillips",
+  description:
+    "Walter Phillips is a software engineer in San Francisco with a physics and engineering background.",
+  path: "/",
+});
 
 const footerLinks = [
   {
@@ -28,7 +38,7 @@ const footerLinks = [
   },
   {
     label: "Email",
-    href: "mailto:walter@example.com",
+    href: `mailto:${resume.email}`,
     kind: "mailto",
   },
 
@@ -51,9 +61,11 @@ export default function Home() {
           >
             Meridian
           </a>
-          .
-        I enjoy football (soccer), photography, physics, and climbing. I&apos;m trying to climb V12 by the end of 2026. My only goal in life is
-          to open a school. Everything else is in service of that.
+          . I&apos;m a software engineer with a physics and engineering
+          background focused on markets, product development, and research.
+          I enjoy football (soccer), photography, physics, and climbing. I&apos;m
+          trying to climb V12 by the end of 2026. My only goal in life is to
+          open a school. Everything else is in service of that.
         </p>
 
         <p className="pt-1 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground/70 sm:text-[11px]">
@@ -73,7 +85,7 @@ export default function Home() {
               aria-hidden="true"
               className="absolute left-0 top-[0.8em] h-1 w-1 -translate-y-1/2 rounded-full bg-muted-foreground/80"
             />
-            Progess isn&apos;t linear, things can get worse if  let them.
+            Progress isn&apos;t linear, things can get worse if we let them.
           </li>
           <li className="relative pl-3 leading-6 sm:leading-7">
             <span

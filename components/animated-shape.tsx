@@ -24,8 +24,8 @@ function generateSphere(count: number): Point3D[] {
 
 function generateCube(count: number): Point3D[] {
   const points: Point3D[] = [];
-  const perFace = Math.floor(count / 6);
-  const side = Math.ceil(Math.sqrt(perFace));
+  const side = Math.max(2, Math.ceil(Math.sqrt(count / 6)));
+  const perFace = side * side;
   // Each face: fixed axis (0=x,1=y,2=z), fixed value (+1 or -1)
   const faces: { axis: number; val: number }[] = [
     { axis: 0, val: 1 },
@@ -157,10 +157,17 @@ export function AnimatedShape({
 
     ctx.clearRect(0, 0, size * 2, size * 2);
 
+    const shapeScale = shape === "cube" ? 0.88 : 1;
+    const dotRadius = shape === "cube" ? DOT_RADIUS * 1.2 : DOT_RADIUS;
+
     // Sort by z for depth ordering
     const projected = points.map((p) => {
-      // Scale point from origin by expand factor
-      const scaled: Point3D = [p[0] * expand, p[1] * expand, p[2] * expand];
+      // Keep the cube slightly denser so its faces read as closed.
+      const scaled: Point3D = [
+        p[0] * expand * shapeScale,
+        p[1] * expand * shapeScale,
+        p[2] * expand * shapeScale,
+      ];
       const rotated = rotateY(rotateX(scaled, 0.4), angle);
       return project(rotated, size * 2, FOV);
     });
@@ -169,7 +176,7 @@ export function AnimatedShape({
     for (const pt of projected) {
       const depthNorm = (pt.z + 1.5) / 3; // normalize depth roughly 0..1
       const alpha = (0.35 + 0.65 * depthNorm) * expand;
-      const r = DOT_RADIUS * pt.scale * (0.5 + 0.5 * depthNorm);
+      const r = dotRadius * pt.scale * (0.5 + 0.5 * depthNorm);
       const brightness = Math.round(200 + 55 * depthNorm); // 200–255 white
 
       ctx.beginPath();
@@ -184,7 +191,7 @@ export function AnimatedShape({
     } else {
       lastTimeRef.current = null;
     }
-  }, [points, size, targetExpand]);
+  }, [points, shape, size, targetExpand]);
 
   useEffect(() => {
     animationRef.current = requestAnimationFrame(draw);
