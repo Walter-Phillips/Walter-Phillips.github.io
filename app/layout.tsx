@@ -5,9 +5,9 @@ import { cn } from "@/lib/utils";
 import { allowIndexing, buildSiteJsonLd, siteConfig, siteUrl } from "@/lib/seo";
 import { resume } from "@/lib/resume";
 
-const geistMono = Geist_Mono({subsets:['latin'],variable:'--font-mono'});
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

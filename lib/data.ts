@@ -31,8 +31,7 @@ export const writing = [
     href: "https://meridian.app/research/understanding-consensus-the-byzantine-generals-problem-illuminates-the-blockchain-requirement",
   },
   {
-    title:
-      "Understanding Blockchains: Cryptography, distributed systems, and game theory",
+    title: "Understanding Blockchains: Cryptography, distributed systems, and game theory",
     venue: "Meridian",
     date: "Jan 2026",
     publishedAt: "2026-01-01",

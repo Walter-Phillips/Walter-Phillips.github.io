@@ -77,9 +77,7 @@ export function buildLlmsText() {
   const educationLines =
     resume.education.length > 0
       ? resume.education.flatMap((entry) => {
-          const lines = [
-            `- ${entry.credential} at ${entry.institution}`,
-          ];
+          const lines = [`- ${entry.credential} at ${entry.institution}`];
 
           if (entry.start || entry.end) {
             lines.push(`  Dates: ${entry.start ?? "Unknown"} - ${entry.end ?? "Unknown"}`);
@@ -105,8 +103,14 @@ export function buildLlmsText() {
       `Description: ${site.description}`,
       "Purpose: Personal website with profile, projects, and writing links.",
     ]),
-    section("About", site.about.map((item) => `- ${item}`)),
-    section("Beliefs", site.beliefs.map((item) => `- ${item}`)),
+    section(
+      "About",
+      site.about.map((item) => `- ${item}`),
+    ),
+    section(
+      "Beliefs",
+      site.beliefs.map((item) => `- ${item}`),
+    ),
     section("Photography", [
       `- ${photographyCollection.description}`,
       "- Gallery supports both grid and carousel presentation modes.",
@@ -148,6 +152,9 @@ export function buildLlmsText() {
     ),
     section("Resume Experience", experienceLines),
     section("Resume Education", educationLines),
-    section("Resume Notes", resume.notes.map((note) => `- ${note}`)),
+    section(
+      "Resume Notes",
+      resume.notes.map((note) => `- ${note}`),
+    ),
   ].join("\n");
 }

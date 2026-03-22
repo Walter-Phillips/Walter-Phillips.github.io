@@ -16,10 +16,7 @@ const INITIAL_VISIBLE_COUNT = 12;
 const VISIBLE_INCREMENT = 12;
 const SENTINEL_ROOT_MARGIN = "900px 0px";
 
-export function PhotoGridView({
-  photos,
-  onSelect,
-}: PhotoGridViewProps) {
+export function PhotoGridView({ photos, onSelect }: PhotoGridViewProps) {
   const reduceMotion = useReducedMotion();
   const [visibleCount, setVisibleCount] = useState(() =>
     Math.min(INITIAL_VISIBLE_COUNT, photos.length),
@@ -110,11 +107,7 @@ export function PhotoGridView({
           );
         })}
       </div>
-      <div
-        ref={sentinelRef}
-        aria-hidden="true"
-        className="h-px w-full"
-      />
+      <div ref={sentinelRef} aria-hidden="true" className="h-px w-full" />
     </>
   );
 }

@@ -16,6 +16,7 @@
     "test:e2e": "playwright test --pass-with-no-tests",
     "verify:quick": "npm run lint && npm run typecheck && npm run test",
     "verify:full": "npm run verify:quick && npm run build && npm run test:e2e",
+    "check:husky": "node scripts/check-husky.mjs",
     "prepare": "husky"
   },
   "dependencies": {

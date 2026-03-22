@@ -66,7 +66,7 @@ export function PhotoCarouselView({
         <button
           type="button"
           onClick={() => selectPhoto(activeIndex - 1)}
-          className="absolute left-5 top-5 z-10 inline-flex size-10 items-center justify-center rounded-full border border-border/70 bg-background/80 text-foreground backdrop-blur-sm transition-colors hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className="absolute left-5 top-1/2 z-10 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-border/70 bg-background/80 text-foreground backdrop-blur-sm transition-colors hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           aria-label="Previous photo"
         >
           <ChevronLeft className="size-4" />
@@ -75,7 +75,7 @@ export function PhotoCarouselView({
         <button
           type="button"
           onClick={() => selectPhoto(activeIndex + 1)}
-          className="absolute right-5 top-5 z-10 inline-flex size-10 items-center justify-center rounded-full border border-border/70 bg-background/80 text-foreground backdrop-blur-sm transition-colors hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className="absolute right-5 top-1/2 z-10 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-border/70 bg-background/80 text-foreground backdrop-blur-sm transition-colors hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           aria-label="Next photo"
         >
           <ChevronRight className="size-4" />
@@ -94,7 +94,7 @@ export function PhotoCarouselView({
               animate={reduceMotion ? undefined : { opacity: 1, x: 0, scale: 1 }}
               exit={reduceMotion ? undefined : { opacity: 0, x: -32, scale: 0.98 }}
               transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              className="relative block w-full overflow-hidden rounded-[24px] bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="relative block w-full overflow-hidden bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               style={{ aspectRatio: activePhoto.aspectRatio }}
               aria-label={`Open ${activePhoto.alt} in lightbox`}
             >
@@ -114,14 +114,6 @@ export function PhotoCarouselView({
               </motion.div>
 
               <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 text-left">
-                <div>
-                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary-foreground/75 sm:text-[11px]">
-                    Drag or click to open
-                  </p>
-                  <p className="mt-2 text-lg font-medium text-primary-foreground">
-                    {activePhoto.title ?? activePhoto.alt}
-                  </p>
-                </div>
                 <p className="hidden font-mono text-[11px] uppercase tracking-[0.2em] text-primary-foreground/70 sm:block">
                   {String(activeIndex + 1).padStart(2, "0")} /{" "}
                   {String(photos.length).padStart(2, "0")}
@@ -132,13 +124,10 @@ export function PhotoCarouselView({
         </div>
       </div>
 
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-start">
+      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)] lg:items-start">
         <PhotoMeta photo={activePhoto} />
 
         <div className="border border-border/20 bg-card/50 p-4">
-          <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground/75 sm:text-[11px]">
-            Slide strip
-          </p>
           <div className="flex gap-3 overflow-x-auto pb-1">
             {photos.map((photo, index) => {
               const isActive = index === activeIndex;
@@ -149,8 +138,7 @@ export function PhotoCarouselView({
                   type="button"
                   onClick={() => selectPhoto(index)}
                   className={cn(
-                    "relative h-20 w-16 shrink-0 overflow-hidden rounded-2xl border border-border/70 bg-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:h-24 sm:w-20",
-                    isActive && "border-primary/60 ring-1 ring-primary/40",
+                    "relative h-20 w-16 shrink-0 overflow-hidden rounded-xs border border-border/70 bg-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:h-24 sm:w-20",
                   )}
                   aria-label={`View ${photo.alt}`}
                   aria-pressed={isActive}

@@ -7,11 +7,7 @@ interface PhotoMetaProps {
   compact?: boolean;
 }
 
-export function PhotoMeta({
-  photo,
-  className,
-  compact = false,
-}: PhotoMetaProps) {
+export function PhotoMeta({ photo, className, compact = false }: PhotoMetaProps) {
   return (
     <div className={cn("space-y-2", className)}>
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1">

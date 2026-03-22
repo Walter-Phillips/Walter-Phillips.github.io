@@ -58,14 +58,7 @@ interface ProjectCardProps {
   id: string;
 }
 
-export function ProjectCard({
-  title,
-  description,
-  href,
-  label,
-  shader,
-  id,
-}: ProjectCardProps) {
+export function ProjectCard({ title, description, href, label, shader, id }: ProjectCardProps) {
   const [hovered, setHovered] = useState(false);
   const reduceMotion = useReducedMotion();
   const showInteractivePreview = hovered && !reduceMotion;

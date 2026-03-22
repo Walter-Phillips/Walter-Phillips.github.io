@@ -47,8 +47,6 @@
   --font-mono: var(--font-mono);
 }
 
-
-
 :root {
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);

@@ -6,7 +6,7 @@ import { shaders } from "@/lib/shaders";
 function compileShader(
   gl: WebGLRenderingContext,
   type: number,
-  source: string
+  source: string,
 ): WebGLShader | null {
   const shader = gl.createShader(type);
   if (!shader) return null;
@@ -23,7 +23,7 @@ function compileShader(
 function createProgram(
   gl: WebGLRenderingContext,
   vertexSource: string,
-  fragmentSource: string
+  fragmentSource: string,
 ): WebGLProgram | null {
   const vs = compileShader(gl, gl.VERTEX_SHADER, vertexSource);
   const fs = compileShader(gl, gl.FRAGMENT_SHADER, fragmentSource);
@@ -67,7 +67,7 @@ export function ShaderCanvas({ shader: shaderKey }: { shader: string }) {
     gl.bufferData(
       gl.ARRAY_BUFFER,
       new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]),
-      gl.STATIC_DRAW
+      gl.STATIC_DRAW,
     );
 
     const posLoc = gl.getAttribLocation(program, "a_position");
@@ -116,19 +116,22 @@ export function ShaderCanvas({ shader: shaderKey }: { shader: string }) {
       rafRef.current = requestAnimationFrame(render);
     };
 
-    const visibilityObserver = new IntersectionObserver(([entry]) => {
-      inView = entry?.isIntersecting ?? true;
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => {
+        inView = entry?.isIntersecting ?? true;
 
-      if (!inView) {
-        cancelAnimationFrame(rafRef.current);
-        rafRef.current = 0;
-        return;
-      }
+        if (!inView) {
+          cancelAnimationFrame(rafRef.current);
+          rafRef.current = 0;
+          return;
+        }
 
-      if (!reduceMotion && rafRef.current === 0) {
-        rafRef.current = requestAnimationFrame(render);
-      }
-    }, { threshold: 0.15 });
+        if (!reduceMotion && rafRef.current === 0) {
+          rafRef.current = requestAnimationFrame(render);
+        }
+      },
+      { threshold: 0.15 },
+    );
 
     visibilityObserver.observe(canvas);
 
@@ -147,10 +150,6 @@ export function ShaderCanvas({ shader: shaderKey }: { shader: string }) {
   }, [shaderKey]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="w-full h-full rounded-md"
-      style={{ display: "block" }}
-    />
+    <canvas ref={canvasRef} className="w-full h-full rounded-md" style={{ display: "block" }} />
   );
 }

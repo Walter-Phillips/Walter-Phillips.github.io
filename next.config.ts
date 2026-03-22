@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
-const photographyDeliveryBaseUrl =
-  process.env.NEXT_PUBLIC_PHOTOGRAPHY_DELIVERY_BASE_URL;
+const photographyDeliveryBaseUrl = process.env.NEXT_PUBLIC_PHOTOGRAPHY_DELIVERY_BASE_URL;
 
 const remotePatterns = [];
 

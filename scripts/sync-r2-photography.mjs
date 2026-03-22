@@ -50,14 +50,8 @@ const accessKeyId = process.env.R2_ACCESS_KEY_ID;
 const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY;
 const bucketName = process.env.R2_BUCKET_NAME;
 const prefix = process.env.R2_PHOTOGRAPHY_PREFIX?.trim();
-const maxResults = Number.parseInt(
-  process.env.R2_PHOTOGRAPHY_MAX_RESULTS ?? "200",
-  10,
-);
-const deliveryBaseUrl = process.env.NEXT_PUBLIC_PHOTOGRAPHY_DELIVERY_BASE_URL?.replace(
-  /\/+$/,
-  "",
-);
+const maxResults = Number.parseInt(process.env.R2_PHOTOGRAPHY_MAX_RESULTS ?? "200", 10);
+const deliveryBaseUrl = process.env.NEXT_PUBLIC_PHOTOGRAPHY_DELIVERY_BASE_URL?.replace(/\/+$/, "");
 
 function invariant(condition, message) {
   if (!condition) {
@@ -69,10 +63,7 @@ invariant(accountId, "Missing R2_ACCOUNT_ID.");
 invariant(accessKeyId, "Missing R2_ACCESS_KEY_ID.");
 invariant(secretAccessKey, "Missing R2_SECRET_ACCESS_KEY.");
 invariant(bucketName, "Missing R2_BUCKET_NAME.");
-invariant(
-  deliveryBaseUrl,
-  "Missing NEXT_PUBLIC_PHOTOGRAPHY_DELIVERY_BASE_URL.",
-);
+invariant(deliveryBaseUrl, "Missing NEXT_PUBLIC_PHOTOGRAPHY_DELIVERY_BASE_URL.");
 
 const endpointOrigin = `https://${accountId}.r2.cloudflarestorage.com`;
 const service = "s3";
@@ -238,9 +229,7 @@ function formatCapturedAt(value) {
     return undefined;
   }
 
-  const exifMatch = /^(\d{4}):(\d{2}):(\d{2})(?:\s+\d{2}:\d{2}:\d{2})?$/.exec(
-    value.trim(),
-  );
+  const exifMatch = /^(\d{4}):(\d{2}):(\d{2})(?:\s+\d{2}:\d{2}:\d{2})?$/.exec(value.trim());
 
   if (exifMatch) {
     const [, year, month] = exifMatch;
@@ -292,11 +281,12 @@ function readAscii(bytes, offset, length) {
 
 function readUInt32BigEndian(bytes, offset) {
   return (
-    (bytes[offset] << 24) |
-    (bytes[offset + 1] << 16) |
-    (bytes[offset + 2] << 8) |
-    bytes[offset + 3]
-  ) >>> 0;
+    ((bytes[offset] << 24) |
+      (bytes[offset + 1] << 16) |
+      (bytes[offset + 2] << 8) |
+      bytes[offset + 3]) >>>
+    0
+  );
 }
 
 function readUInt16BigEndian(bytes, offset) {
@@ -309,23 +299,20 @@ function readUInt16LittleEndian(bytes, offset) {
 
 function readUInt32LittleEndian(bytes, offset) {
   return (
-    bytes[offset] |
-    (bytes[offset + 1] << 8) |
-    (bytes[offset + 2] << 16) |
-    (bytes[offset + 3] << 24)
-  ) >>> 0;
+    (bytes[offset] |
+      (bytes[offset + 1] << 8) |
+      (bytes[offset + 2] << 16) |
+      (bytes[offset + 3] << 24)) >>>
+    0
+  );
 }
 
 function readUInt16(bytes, offset, littleEndian) {
-  return littleEndian
-    ? readUInt16LittleEndian(bytes, offset)
-    : readUInt16BigEndian(bytes, offset);
+  return littleEndian ? readUInt16LittleEndian(bytes, offset) : readUInt16BigEndian(bytes, offset);
 }
 
 function readUInt32(bytes, offset, littleEndian) {
-  return littleEndian
-    ? readUInt32LittleEndian(bytes, offset)
-    : readUInt32BigEndian(bytes, offset);
+  return littleEndian ? readUInt32LittleEndian(bytes, offset) : readUInt32BigEndian(bytes, offset);
 }
 
 function getTiffValueOffset(entryOffset, count, tiffStart, bytes, littleEndian) {
@@ -370,13 +357,7 @@ function findAsciiTagValue(bytes, tiffStart, ifdOffset, littleEndian, tagIds) {
       continue;
     }
 
-    const valueOffset = getTiffValueOffset(
-      entryOffset,
-      count,
-      tiffStart,
-      bytes,
-      littleEndian,
-    );
+    const valueOffset = getTiffValueOffset(entryOffset, count, tiffStart, bytes, littleEndian);
 
     return readAscii(bytes, valueOffset, count);
   }
@@ -461,37 +442,18 @@ function detectJpegExifCapturedAt(bytes) {
         }
 
         const byteOrder = readAscii(bytes, tiffStart, 2);
-        const littleEndian =
-          byteOrder === "II" ? true : byteOrder === "MM" ? false : null;
+        const littleEndian = byteOrder === "II" ? true : byteOrder === "MM" ? false : null;
 
         if (littleEndian === null) {
           return null;
         }
 
         const ifd0Offset = readUInt32(bytes, tiffStart + 4, littleEndian);
-        const exifIfdOffset = findLongTagValue(
-          bytes,
-          tiffStart,
-          ifd0Offset,
-          littleEndian,
-          0x8769,
-        );
+        const exifIfdOffset = findLongTagValue(bytes, tiffStart, ifd0Offset, littleEndian, 0x8769);
 
         const exifDate =
-          findAsciiTagValue(
-            bytes,
-            tiffStart,
-            exifIfdOffset,
-            littleEndian,
-            [0x9003, 0x9004],
-          ) ??
-          findAsciiTagValue(
-            bytes,
-            tiffStart,
-            ifd0Offset,
-            littleEndian,
-            [0x0132],
-          );
+          findAsciiTagValue(bytes, tiffStart, exifIfdOffset, littleEndian, [0x9003, 0x9004]) ??
+          findAsciiTagValue(bytes, tiffStart, ifd0Offset, littleEndian, [0x0132]);
 
         return exifDate;
       }
@@ -538,10 +500,8 @@ function detectWebpDimensions(bytes) {
   const chunkType = new TextDecoder().decode(bytes.slice(12, 16));
 
   if (chunkType === "VP8X" && bytes.length >= 30) {
-    const width =
-      1 + bytes[24] + (bytes[25] << 8) + (bytes[26] << 16);
-    const height =
-      1 + bytes[27] + (bytes[28] << 8) + (bytes[29] << 16);
+    const width = 1 + bytes[24] + (bytes[25] << 8) + (bytes[26] << 16);
+    const height = 1 + bytes[27] + (bytes[28] << 8) + (bytes[29] << 16);
     return { width, height };
   }
 
@@ -553,11 +513,7 @@ function detectWebpDimensions(bytes) {
   }
 
   if (chunkType === "VP8L" && bytes.length >= 25) {
-    const value =
-      bytes[21] |
-      (bytes[22] << 8) |
-      (bytes[23] << 16) |
-      (bytes[24] << 24);
+    const value = bytes[21] | (bytes[22] << 8) | (bytes[23] << 16) | (bytes[24] << 24);
     return {
       width: (value & 0x3fff) + 1,
       height: ((value >> 14) & 0x3fff) + 1,
@@ -590,10 +546,7 @@ function detectJpegDimensions(bytes) {
     }
 
     const segmentLength = readUInt16BigEndian(bytes, offset + 2);
-    const isSofMarker =
-      marker >= 0xc0 &&
-      marker <= 0xcf &&
-      ![0xc4, 0xc8, 0xcc].includes(marker);
+    const isSofMarker = marker >= 0xc0 && marker <= 0xcf && ![0xc4, 0xc8, 0xcc].includes(marker);
 
     if (isSofMarker && offset + 8 < bytes.length) {
       return {
@@ -618,10 +571,7 @@ function detectImageDimensions(bytes) {
 }
 
 async function inspectImage(key) {
-  const assetUrl = `${deliveryBaseUrl}/${key
-    .split("/")
-    .map(encodeURIComponent)
-    .join("/")}`;
+  const assetUrl = `${deliveryBaseUrl}/${key.split("/").map(encodeURIComponent).join("/")}`;
   const bytes = await fetchBytes(assetUrl, 262144);
   const dimensions = detectImageDimensions(bytes);
 

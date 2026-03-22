@@ -15,15 +15,11 @@ const options: Array<{ value: PhotoGalleryView; label: string }> = [
   { value: "grid", label: "Grid" },
 ];
 
-export function PhotoGalleryToggle({
-  view,
-  onViewChange,
-  className,
-}: PhotoGalleryToggleProps) {
+export function PhotoGalleryToggle({ view, onViewChange, className }: PhotoGalleryToggleProps) {
   return (
     <div
       className={cn(
-        "inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em]",
+        "inline-flex items-center gap-2 rounded-full border border-border/70 bg-background/80 px-4 py-3 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground shadow-lg shadow-background/25 backdrop-blur-md",
         className,
       )}
       role="tablist"
@@ -35,10 +31,7 @@ export function PhotoGalleryToggle({
         return (
           <div key={option.value} className="inline-flex items-center gap-2">
             {index > 0 ? (
-              <span
-                aria-hidden="true"
-                className="text-muted-foreground/35"
-              >
+              <span aria-hidden="true" className="text-muted-foreground/35">
                 |
               </span>
             ) : null}
@@ -48,7 +41,7 @@ export function PhotoGalleryToggle({
               aria-selected={isActive}
               onClick={() => onViewChange(option.value)}
               className={cn(
-                "transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                "rounded-full px-1.5 py-0.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
                 isActive
                   ? "text-foreground"
                   : "text-muted-foreground/60 hover:text-muted-foreground",

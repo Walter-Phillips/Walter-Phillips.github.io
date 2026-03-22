@@ -6,8 +6,7 @@ import { buildPageMetadata, buildWritingJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Writing",
-  description:
-    "Research writing, essays, and external publications from Walter Phillips.",
+  description: "Research writing, essays, and external publications from Walter Phillips.",
   path: "/writing",
 });
 

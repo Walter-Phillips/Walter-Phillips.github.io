@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PhotoGallery } from "@/components/photo-gallery";
-import {
-  getPhotographyPhotos,
-  photographyCollection,
-} from "@/lib/photography";
+import { getPhotographyPhotos, photographyCollection } from "@/lib/photography";
 import { buildPageMetadata, buildPhotographyJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -50,8 +47,7 @@ function getCapturedAtSortValue(capturedAt?: string) {
 export default function PhotographyPage() {
   const photos = getPhotographyPhotos().sort(
     (left, right) =>
-      getCapturedAtSortValue(right.capturedAt) -
-      getCapturedAtSortValue(left.capturedAt),
+      getCapturedAtSortValue(right.capturedAt) - getCapturedAtSortValue(left.capturedAt),
   );
 
   return (

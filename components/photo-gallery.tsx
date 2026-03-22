@@ -19,7 +19,12 @@ export function PhotoGallery({ photos }: PhotoGalleryProps) {
 
   return (
     <>
-      <section className="space-y-6">
+      <section
+        className="space-y-6"
+        style={{
+          paddingBottom: "calc(6rem + env(safe-area-inset-bottom, 0px))",
+        }}
+      >
         <div className="p-3 sm:p-4">
           <AnimatePresence initial={false} mode="wait">
             {view === "grid" ? (
@@ -71,11 +76,18 @@ export function PhotoGallery({ photos }: PhotoGalleryProps) {
           setLightboxIndex(index);
         }}
       />
-      <PhotoGalleryToggle
-        view={view}
-        onViewChange={setView}
-        className="text-[12px] tracking-[0.24em]"
-      />
+      <div
+        className="pointer-events-none fixed inset-x-0 bottom-0 z-40 flex justify-center px-4 sm:px-6"
+        style={{
+          paddingBottom: "calc(1rem + env(safe-area-inset-bottom, 0px))",
+        }}
+      >
+        <PhotoGalleryToggle
+          view={view}
+          onViewChange={setView}
+          className="pointer-events-auto text-[12px] tracking-[0.24em]"
+        />
+      </div>
     </>
   );
 }

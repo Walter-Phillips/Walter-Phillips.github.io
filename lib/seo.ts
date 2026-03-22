@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { projects, writing } from "@/lib/data";
-import {
-  getPhotographyPhotos,
-  photographyCollection,
-} from "@/lib/photography";
+import { getPhotographyPhotos, photographyCollection } from "@/lib/photography";
 import { resume } from "@/lib/resume";
 
 export const siteUrl = "https://walter-phillips.github.io";
@@ -14,8 +11,7 @@ export const allowIndexing = process.env.VERCEL_ENV
 export const siteConfig = {
   name: resume.name,
   title: "Walter Phillips",
-  description:
-    "Walter Phillips is a software engineer with a physics and engineering background.",
+  description: "Walter Phillips is a software engineer with a physics and engineering background.",
   ogImagePath: "/opengraph-image",
   author: {
     name: resume.name,
@@ -93,11 +89,9 @@ export function buildSiteJsonLd() {
             name: resume.location,
           }
         : undefined,
-      sameAs: [
-        resume.github,
-        siteConfig.author.linkedin,
-        siteConfig.author.twitter,
-      ].filter(Boolean),
+      sameAs: [resume.github, siteConfig.author.linkedin, siteConfig.author.twitter].filter(
+        Boolean,
+      ),
       alumniOf: resume.education.map((entry) => ({
         "@type": "CollegeOrUniversity",
         name: entry.institution,
@@ -131,8 +125,7 @@ export function buildProjectsJsonLd() {
     "@type": "CollectionPage",
     name: "Projects",
     url: getAbsoluteUrl("/projects"),
-    description:
-      "Selected projects and products Walter Phillips has built or contributed to.",
+    description: "Selected projects and products Walter Phillips has built or contributed to.",
     mainEntity: {
       "@type": "ItemList",
       itemListElement: projects.map((project, index) => ({
