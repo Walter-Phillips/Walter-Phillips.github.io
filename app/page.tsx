@@ -65,7 +65,6 @@ export default function Home() {
             markets, product development, and research. I enjoy football (soccer),{" "}
             <a
               href="/photography"
-              target="_blank"
               rel="noopener noreferrer"
               className="underline underline-offset-4 transition-colors hover:text-primary"
             >
