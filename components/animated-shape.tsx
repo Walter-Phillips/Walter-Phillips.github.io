@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 
-type ShapeType = "sphere" | "cube" | "torus";
+type ShapeType = "sphere" | "cube" | "torus" | "coin";
 
 type Point3D = [number, number, number];
 
@@ -64,6 +64,40 @@ function generateTorus(count: number): Point3D[] {
   return points.slice(0, count);
 }
 
+function generateCoin(count: number): Point3D[] {
+  const points: Point3D[] = [];
+  const R = 0.85; // coin radius
+  const h = 0.14; // half-thickness
+  const indent = 0.07; // concavity depth at center of each face
+
+  const rimCount = Math.floor(count * 0.35);
+  const faceCount = Math.floor((count - rimCount) / 2);
+
+  // Rim: thin cylindrical edge
+  const rimRows = 5;
+  for (let i = 0; i < rimCount; i++) {
+    const theta = (i / rimCount) * Math.PI * 2;
+    const row = i % rimRows;
+    const y = ((row / (rimRows - 1)) * 2 - 1) * h;
+    points.push([R * Math.cos(theta), y, R * Math.sin(theta)]);
+  }
+
+  // Faces: Fibonacci spiral for uniform disc coverage, with paraboloid concavity
+  for (let face = 0; face < 2; face++) {
+    const sign = face === 0 ? 1 : -1;
+    for (let i = 0; i < faceCount; i++) {
+      const r = R * Math.sqrt((i + 0.5) / faceCount);
+      const theta = i * Math.PI * (1 + Math.sqrt(5));
+      const rNorm = r / R;
+      const concave = indent * (1 - rNorm * rNorm); // peaks at center, 0 at rim
+      const y = sign * (h - concave);
+      points.push([r * Math.cos(theta), y, r * Math.sin(theta)]);
+    }
+  }
+
+  return points.slice(0, count);
+}
+
 function rotateY(p: Point3D, angle: number): Point3D {
   const cos = Math.cos(angle);
   const sin = Math.sin(angle);
@@ -96,6 +130,7 @@ const generators: Record<ShapeType, (n: number) => Point3D[]> = {
   sphere: generateSphere,
   cube: generateCube,
   torus: generateTorus,
+  coin: generateCoin,
 };
 
 const POINT_COUNT = 500;
@@ -154,7 +189,8 @@ export function AnimatedShape({
       ctx.clearRect(0, 0, size * 2, size * 2);
 
       const shapeScale = shape === "cube" ? 0.88 : 1;
-      const dotRadius = shape === "cube" ? DOT_RADIUS * 1.2 : DOT_RADIUS;
+      const dotRadius =
+        shape === "cube" ? DOT_RADIUS * 1.2 : shape === "coin" ? DOT_RADIUS * 0.9 : DOT_RADIUS;
 
       // Sort by z for depth ordering
       const projected = points.map((p) => {
@@ -207,4 +243,4 @@ export function AnimatedShape({
   );
 }
 
-export const shapes: ShapeType[] = ["sphere", "cube", "torus"];
+export const shapes: ShapeType[] = ["sphere", "cube", "torus", "coin"];
