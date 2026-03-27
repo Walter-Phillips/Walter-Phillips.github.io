@@ -127,3 +127,100 @@
     @apply overflow-x-clip bg-background text-foreground;
   }
 }
+
+@layer components {
+  .blog-prose {
+    @apply max-w-none text-[15px] leading-7 text-foreground [overflow-wrap:anywhere] sm:text-base sm:leading-8;
+  }
+
+  .blog-prose h2 {
+    @apply mt-9 text-[1.55rem] leading-tight font-semibold tracking-tight text-foreground [overflow-wrap:anywhere] sm:mt-10 sm:text-2xl;
+  }
+
+  .blog-prose h3 {
+    @apply mt-7 text-[1.2rem] leading-tight font-semibold tracking-tight text-foreground [overflow-wrap:anywhere] sm:mt-8 sm:text-xl;
+  }
+
+  .blog-prose p,
+  .blog-prose ul,
+  .blog-prose ol,
+  .blog-prose blockquote,
+  .blog-prose pre {
+    @apply mt-5;
+  }
+
+  .blog-prose a {
+    @apply break-words text-foreground underline underline-offset-4 transition-colors hover:text-primary;
+  }
+
+  .blog-prose ul,
+  .blog-prose ol {
+    @apply space-y-2 pl-5 text-muted-foreground;
+  }
+
+  .blog-prose ul {
+    @apply list-disc;
+  }
+
+  .blog-prose ol {
+    @apply list-decimal;
+  }
+
+  .blog-prose p {
+    @apply text-muted-foreground;
+  }
+
+  .blog-prose strong,
+  .blog-prose code {
+    @apply text-foreground;
+  }
+
+  .blog-prose code {
+    @apply rounded bg-card px-1.5 py-0.5 font-mono text-[0.9em] break-all;
+  }
+
+  .blog-prose pre {
+    @apply overflow-x-auto rounded-2xl border border-border/70 bg-card/70 p-3.5 sm:p-4;
+  }
+
+  .blog-prose pre code {
+    @apply bg-transparent p-0 text-[12.5px] break-normal sm:text-[13px];
+  }
+
+  .blog-prose blockquote {
+    @apply border-l border-border pl-4 italic text-muted-foreground;
+  }
+
+  .blog-prose figure {
+    @apply my-7 sm:my-8;
+  }
+
+  .blog-table-wrap {
+    @apply mt-5 overflow-x-auto rounded-2xl border border-border/70 bg-card/40;
+  }
+
+  .blog-prose table {
+    @apply min-w-full border-collapse text-left text-sm text-muted-foreground;
+  }
+
+  .blog-prose thead {
+    @apply bg-card/80 text-foreground;
+  }
+
+  .blog-prose th,
+  .blog-prose td {
+    @apply min-w-36 border-b border-border/60 px-3 py-2.5 align-top;
+  }
+
+  .blog-prose th {
+    @apply font-medium tracking-tight;
+  }
+
+  .blog-prose tbody tr:last-child td {
+    @apply border-b-0;
+  }
+
+  .blog-prose hr {
+    @apply my-8 border-border;
+  }
+}

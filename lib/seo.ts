@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { BlogPost } from "@/lib/blog";
 import { projects, writing } from "@/lib/data";
 import { getPhotographyPhotos, photographyCollection } from "@/lib/photography";
 import { resume } from "@/lib/resume";
@@ -65,6 +66,46 @@ export function buildPageMetadata({
       title,
       description,
       images: defaultImage,
+    },
+  };
+}
+
+export function buildBlogPostMetadata(post: BlogPost): Metadata {
+  const url = getAbsoluteUrl(post.canonicalPath);
+  const images = post.coverImage
+    ? [
+        {
+          url: post.coverImage.src,
+          width: post.coverImage.width,
+          height: post.coverImage.height,
+          alt: post.coverImage.alt,
+        },
+      ]
+    : defaultImage;
+
+  return {
+    title: post.title,
+    description: post.summary,
+    alternates: {
+      canonical: post.canonicalPath,
+    },
+    openGraph: {
+      title: post.title,
+      description: post.summary,
+      url,
+      siteName: siteConfig.name,
+      type: "article",
+      publishedTime: post.publishedAt,
+      modifiedTime: post.updatedAt ?? post.publishedAt,
+      authors: [siteConfig.author.name],
+      tags: post.tags,
+      images,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.summary,
+      images,
     },
   };
 }
@@ -139,23 +180,81 @@ export function buildProjectsJsonLd() {
   };
 }
 
-export function buildWritingJsonLd() {
+export function buildWritingJsonLd(
+  posts: Pick<BlogPost, "title" | "canonicalPath" | "publishedAt">[] = [],
+) {
   return {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "Writing",
     url: getAbsoluteUrl("/writing"),
-    description: "Selected writing and research links from Walter Phillips.",
+    description: "First-party blog posts, essays, and external publications from Walter Phillips.",
     mainEntity: {
       "@type": "ItemList",
-      itemListElement: writing.map((entry, index) => ({
+      itemListElement: [
+        ...posts.map((post, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: post.title,
+          url: getAbsoluteUrl(post.canonicalPath),
+          datePublished: post.publishedAt,
+        })),
+        ...writing.map((entry, index) => ({
+          "@type": "ListItem",
+          position: posts.length + index + 1,
+          name: entry.title,
+          url: entry.href,
+          datePublished: entry.publishedAt,
+        })),
+      ],
+    },
+  };
+}
+
+export function buildBlogJsonLd(
+  posts: Pick<BlogPost, "title" | "canonicalPath" | "publishedAt">[],
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Blog",
+    url: getAbsoluteUrl("/blog"),
+    description: "First-party essays, notes, and longer-form writing from Walter Phillips.",
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: posts.map((post, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        name: entry.title,
-        url: entry.href,
-        datePublished: entry.publishedAt,
+        name: post.title,
+        url: getAbsoluteUrl(post.canonicalPath),
+        datePublished: post.publishedAt,
       })),
     },
+  };
+}
+
+export function buildBlogPostJsonLd(post: BlogPost) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.summary,
+    datePublished: post.publishedAt,
+    dateModified: post.updatedAt ?? post.publishedAt,
+    url: getAbsoluteUrl(post.canonicalPath),
+    author: {
+      "@type": "Person",
+      name: siteConfig.author.name,
+      url: siteUrl,
+    },
+    publisher: {
+      "@type": "Person",
+      name: siteConfig.author.name,
+      url: siteUrl,
+    },
+    image: post.coverImage?.src,
+    keywords: post.tags,
+    mainEntityOfPage: getAbsoluteUrl(post.canonicalPath),
   };
 }
 

@@ -1,3 +1,4 @@
+import { getPublishedPosts } from "@/lib/blog";
 import { projects, writing } from "@/lib/data";
 import { photographyCollection } from "@/lib/photography";
 import { resume } from "@/lib/resume";
@@ -21,6 +22,7 @@ const site = {
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },
     { label: "Projects", href: "/projects" },
+    { label: "Blog", href: "/blog" },
     { label: "Photography", href: "/photography" },
     { label: "Writing", href: "/writing" },
     { label: "GitHub", href: resume.github ?? "https://github.com/Walter-Phillips" },
@@ -37,7 +39,9 @@ function section(title: string, lines: string[]) {
   return [title, ...lines, ""].join("\n");
 }
 
-export function buildLlmsText() {
+export async function buildLlmsText() {
+  const posts = await getPublishedPosts();
+
   const projectLines = projects.map((project) =>
     [
       `- ${project.title}`,
@@ -55,6 +59,18 @@ export function buildLlmsText() {
       `  URL: ${entry.href}`,
     ].join("\n"),
   );
+
+  const blogLines =
+    posts.length > 0
+      ? posts.map((post) =>
+          [
+            `- ${post.title}`,
+            `  Published: ${post.publishedAt}`,
+            `  Summary: ${post.summary}`,
+            `  URL: ${new URL(post.canonicalPath, site.url).toString()}`,
+          ].join("\n"),
+        )
+      : ["- No blog posts have been published yet."];
 
   const experienceLines =
     resume.experience.length > 0
@@ -101,7 +117,7 @@ export function buildLlmsText() {
       `Site: ${site.name}`,
       `Canonical URL: ${site.url}`,
       `Description: ${site.description}`,
-      "Purpose: Personal website with profile, projects, and writing links.",
+      "Purpose: Personal website with profile, projects, blog posts, and writing links.",
     ]),
     section(
       "About",
@@ -128,6 +144,7 @@ export function buildLlmsText() {
         .map((link) => `- ${link.label}: ${link.href}`),
     ),
     section("Projects", projectLines),
+    section("Blog", blogLines),
     section("Writing", writingLines),
     section("Resume", [
       `Name: ${resume.name}`,

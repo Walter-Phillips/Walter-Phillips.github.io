@@ -6,6 +6,7 @@
 - React 19
 - TypeScript
 - Tailwind CSS 4
+- Markdown content for the native blog under `content/blog`
 
 ## Routing and UI Structure
 
@@ -13,6 +14,7 @@
 - Shared shell and metadata live in `app/layout.tsx`.
 - Keep root layout concerns global; route-specific width and content containers should live in the route tree so sections like photography can opt into wider layouts without affecting the rest of the site.
 - Route content should remain simple and readable; shared abstractions should be introduced only when duplication is material.
+- First-party blog content lives under `/blog`, with source files in `content/blog` and supporting loaders/helpers in `lib/**`.
 
 ## Boundaries
 

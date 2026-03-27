@@ -21,10 +21,18 @@
 - Keep layout width decisions local to route/page wrappers instead of introducing route-specific global body styles.
 - Use Prettier for whitespace/layout formatting; do not hand-tune formatting that conflicts with repo tooling.
 
+## Content
+
+- Store first-party blog posts as Markdown files in `content/blog`.
+- Require frontmatter for blog posts: `title`, `summary`, and `publishedAt`; `updatedAt`, `tags`, and `draft` are optional.
+- Keep draft posts out of production pages, feeds, and sitemap output.
+- Keep blog list surfaces text-only; render cover images only on the individual post page.
+
 ## Media
 
 - Store photography and other large media outside the repo and render them through CDN-backed remote URLs.
 - When using remote images, define approved domains/patterns in `next.config.ts`, include explicit dimensions in metadata, and provide responsive `sizes` values.
+- For blog posts, add allowed CDN base URLs to `NEXT_PUBLIC_BLOG_IMAGE_DELIVERY_BASE_URLS`, use `next/image` for covers and inline images, and keep dimensions explicit in frontmatter or Markdown image titles.
 
 ## Design System
 

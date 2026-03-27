@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BlogList } from "@/components/blog-list";
+import { getPublishedPosts } from "@/lib/blog";
 import { resume } from "@/lib/resume";
-import { projects, writing } from "@/lib/data";
+import { projects } from "@/lib/data";
 import { ProjectCard } from "@/components/project-card";
-import { WritingList } from "@/components/writing-list";
 import { buildPageMetadata } from "@/lib/seo";
 
 const PREVIEW_COUNT = 3;
@@ -37,13 +38,20 @@ const footerLinks = [
     kind: "internal",
   },
   {
+    label: "Blog",
+    href: "/blog",
+    kind: "internal",
+  },
+  {
     label: "Email",
     href: `mailto:${resume.email}`,
     kind: "mailto",
   },
 ] as const;
 
-export default function Home() {
+export default async function Home() {
+  const blogPosts = await getPublishedPosts();
+
   return (
     <main className="py-12 sm:py-16 md:py-20">
       <div className="mx-auto w-full max-w-3xl px-4 sm:px-8 md:px-10 lg:px-12">
@@ -130,18 +138,18 @@ export default function Home() {
 
         <section className="mb-12 sm:mb-14">
           <h2 className="mb-5 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground/75 sm:text-[11px]">
-            Writing
+            Blog
           </h2>
-          {writing.length > 0 ? (
-            <WritingList items={writing.slice(0, PREVIEW_COUNT)} />
+          {blogPosts.length > 0 ? (
+            <BlogList items={blogPosts.slice(0, PREVIEW_COUNT)} />
           ) : (
-            <p className="text-sm text-muted-foreground">Coming soon.</p>
+            <p className="text-sm text-muted-foreground">The first post is on the way.</p>
           )}
           <Link
-            href="/writing"
+            href="/blog"
             className="mt-5 inline-flex items-center py-1 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
-            See more &rarr;
+            Read more &rarr;
           </Link>
         </section>
 
